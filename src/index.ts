@@ -1,11 +1,22 @@
 import Phaser, { Scenes } from 'phaser';
 import MainMenuScene from './scenes/MainMenuScene';
-import Splash from './scenes/Splash';
+import Splash from './scenes/Game';
+import { getShipImages } from './Player/ShipManager';
 
-let image;
 
-function preload() {
-    
+function preload(this: Phaser.Scene) {
+    // let ships = getShipImages();
+    // for (const team in ships) {
+    //     if (ships.hasOwnProperty(team)) {
+    //         const teamImages = ships[team];
+    //         for (const orientation in teamImages) {
+    //             if (teamImages.hasOwnProperty(orientation)) {
+    //                 const imagePath = teamImages[orientation];
+    //                 this.load.image(imagePath, imagePath); // Using imagePath as the key
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 function create() {
@@ -13,13 +24,17 @@ function create() {
 }
 
 function update() {
-    // Update your game objects here
+    
 }
 
 const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
+    fps: {
+        target: 60,
+        forceSetTimeOut: true,        
+    },
     physics: {
         default: 'arcade',
         arcade: {

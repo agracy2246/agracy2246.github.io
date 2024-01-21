@@ -1,9 +1,10 @@
 import Phaser from "phaser";
+import * as ShipManager from './ShipManager';
+import { TeamColors } from "./TeamColorsEnum";
+
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
-
     private _scene!: Phaser.Scene;
-    private _isSpriteSheet: boolean;
 
     private _controls: {
         up: Phaser.Input.Keyboard.Key | undefined,
@@ -13,10 +14,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     };
 
 
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string, isSpriteSheet: boolean = false) {
+    constructor(scene: Phaser.Scene, x: number, y: number, texture: string, teamColor: TeamColors) {
         super(scene, x, y, texture);
         this._scene = scene;
-
         this._controls = {
             up: this._scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W),
             down: this._scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S),
@@ -24,7 +24,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             right: this._scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D)
         };
 
-        this._isSpriteSheet = isSpriteSheet;
+        
 
         this.create();
     }
@@ -57,8 +57,25 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(velocity.x, velocity.y)
     }
     
-    static preload(scene: Phaser.Scene, name: string ,filePath: string): void {
+    static preloadPlayerAssets(scene: Phaser.Scene, name: string, teamColor: string): void {
         // Preload assets
-        scene.load.image(name, filePath);
+        switch (teamColor) {
+            case 'red':
+                console.log('red switch')
+                break;
+            case 'blue':
+                console.log('blue')
+                break;
+            case 'green':
+                console.log('green')
+                break;
+            case 'yellow':
+                console.log('yellow')
+                break;
+            default:
+                console.log('default')
+                break;
+        }
+        //scene.load.image(name, filePath);
     }
 }
