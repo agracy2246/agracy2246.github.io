@@ -1,5 +1,4 @@
 import Phaser, { Scenes } from 'phaser';
-import MainMenuScene from './scenes/MainMenuScene';
 import Splash from './scenes/Game';
 import { getShipImages } from './Player/ShipManager';
 
@@ -40,7 +39,7 @@ const config = {
         arcade: {
         }
     },
-    scene: [Splash,MainMenuScene,],
+    scene: [Splash,],
     callbacks: {
         postBoot: function (game) {
             game.registry.set('worldWidth', 1920);

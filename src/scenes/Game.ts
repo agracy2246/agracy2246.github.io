@@ -32,27 +32,26 @@ export default class Splash extends Phaser.Scene {
     }
 
     preload() {
-        Player.preloadPlayerAssets(this, 'ship', 'red');
-
-        this.load.image('bg', 'src/assets/white.png');
+        this.load.image('ship', 'src/assets/ships/red/tile017.png');    
+        this.load.image('background', 'src/assets/imgFarplane.jpg')
     }
 
     create() {
+        this.add.image(0, 0, 'background').setOrigin(0, 0);
+
         this.worldWidth = this.game.registry.get('worldWidth');
         this.worldHeight = this.game.registry.get('worldHeight');
         // Calculate the extended dimensions for the TileSprite
         const extendedWidth = this.worldWidth * 5;
         const extendedHeight = this.worldHeight * 6;
         // Create and add a background to the scene and make it tile or repeat
-
-        let bg = this.add.tileSprite(0, 0, extendedWidth, extendedHeight, 'bg').setOrigin(0, 0);
         // set the size of the world bounds to the size of the screen
         this.physics.world.setBounds(0, 0, this.worldWidth, this.worldHeight);
 
         // Create and add a ball to the scene
         // this.player = new Ball(this, 400, 300, 'ball', 1, this.graphics);
 
-        this.ship = new Player(this, 300, 450, 'ship', TeamColors.RED);
+        this.ship = new Player(this, 100, 100, 'ship', TeamColors.RED);
 
         this.ship.setScale(.5, .5)
 
@@ -63,7 +62,7 @@ export default class Splash extends Phaser.Scene {
         this.graphics = this.add.graphics();
 
         // Create a new scene for the UI
-        this.debugUIScene = this.scene.add('debug-ui', new UIScene('debug-ui', this.sceneName, this), true) as UIScene;
+        // this.debugUIScene = this.scene.add('debug-ui', new UIScene('debug-ui', this.sceneName, this), true) as UIScene;
 
     }
 
@@ -77,11 +76,9 @@ export default class Splash extends Phaser.Scene {
         } else if (Phaser.Input.Keyboard.JustDown(rightKey!)) {
             this.index++;
         }
-
-        this.add.sprite(240, 150, 'ships', 0).setScale(1);
         // Update your game objects here
         this.ship.update();
-        this.debugUIScene.update();
+        // this.debugUIScene.update();
         // Update your game objects here
     }
 }
@@ -115,11 +112,7 @@ class UIScene extends Phaser.Scene {
         const debugButton = this.add.text(Number(this.sys.game.config.width) - 250, 0, 'Toggle Debug', { color: '#0F0', fontSize: '24px', backgroundColor: '#000' });
         this._fpsText = this.add.text(Number(this.sys.game.config.width) - 250, 50, 'FPS: ', { color: '#0F0', fontSize: '24px', backgroundColor: '#000' });
         // Access the current FPS
-        let fps = this.game.loop.actualFps;
 
-
-        // Optionally, you can log it or use it for other purposes
-        console.log("Current FPS: " + Math.round(fps));
         debugButton.setInteractive();
         debugButton.on('pointerdown', () => {
             this._debugGraphics.visible = !this._debugGraphics.visible;

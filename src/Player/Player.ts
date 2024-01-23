@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import * as ShipManager from './ShipManager';
 import { TeamColors } from "./TeamColorsEnum";
 
 
@@ -53,7 +52,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             velocity.y += 1;
         }
 
-        velocity.normalize().scale(160);
+        velocity.normalize().scale(60);
         this.setVelocity(velocity.x, velocity.y)
     }
     
